@@ -52,7 +52,7 @@ DIVIDE(
 ) * 100
 Outcome: Helped in identifying high-rejection insurers.
 
-**Charts & Visualizations **
+**Charts & Visualizations**
 1. KPI Cards
 •	Total Patients
 •	Average Length of Stay
@@ -92,12 +92,17 @@ Add Readmission Rate KPI to track how many patients return within 30 days.
 Create a Trend Chart for Claim Rejections Over Time.
 Fix Missing Data in Recent Discharge Trends.
 
-Summary
+**Summary**
 
 •	Fixed Bed Occupancy Rate Calculation
+
 •	Created Claim Status & Rejection Rate Columns
+
 •	Transformed Patient Names to Proper Case
+
 •	Visualized Billing Amount vs. Insurance Coverage
+
 •	Analyzed Patient Flow, Discharges, and Claim Rejections
+
 This project showcases advanced Power BI analytics for hospital management, providing key insights for optimizing operations, billing, and patient care.
 
