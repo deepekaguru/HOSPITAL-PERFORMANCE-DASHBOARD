@@ -1,6 +1,6 @@
 # HOSPITAL-PERFORMANCE-DASHBOARD
  
-🏥 Hospital Performance Dashboard – Project Documentation
+🏥 Hospital Performance Dashboard – Power BI
 
 Author: Deepeka Gurunathan
 
