@@ -4,21 +4,67 @@
 
 Author: Deepeka Gurunathan
 
-Project Overview: This project focuses on analyzing hospital performance using Power BI, incorporating patient trends, billing insights, bed occupancy rates, and claim rejection analysis.
+Project Overview: This project analyzes hospital performance using Power BI, incorporating patient trends, billing insights, bed occupancy rates, and claim rejection analysis.
 
 **Data Transformations & Column Additions**
 
-1. Created "Insurance Paid Amount" Column
+1. Generated "Patient ID" Randomly
+Purpose: To create unique identifiers for each patient.
+DAX Formula:
+Patient ID ="PT" & FORMAT(RANDBETWEEN(100000, 999999), "000000")
+Outcome: Ensured each patient had a unique ID (e.g., PT123456).
+
+ 2. Created "Duration of Admission" Column
+Purpose: To calculate the length of stay (days) between admission and discharge.
+DAX Formula: Duration of Admission = DATEDIFF('healthcare_dataset'[Date of Admission], 'healthcare_dataset'[Discharge Date], DAY)
+Outcome: Allowed analysis of long vs. short hospital stays.
+
+ 3. Grouped Patients by Age
+Purpose: To categorize patients into age brackets for better analysis.
+DAX Formula:
+Age Group = SWITCH(
+     TRUE(),
+    'healthcare_dataset'[Patient Age] >= 80, "80+",
+    'healthcare_dataset'[Patient Age] >= 70, "70-79",
+    'healthcare_dataset'[Patient Age] >= 60, "60-69",
+    'healthcare_dataset'[Patient Age] >= 50, "50-59",
+    'healthcare_dataset'[Patient Age] >= 40, "40-49",
+    'healthcare_dataset'[Patient Age] >= 30, "30-39",
+    'healthcare_dataset'[Patient Age] >= 20, "20-29",
+    "10-19")
+Outcome: Allowed for demographic segmentation and trend analysis.
+
+4. Randomly Assigned Patient Admission Time
+Purpose: To generate random admission times for analysis of peak vs. non-peak hours.
+DAX Formula:
+Patient Admission Time = TIME(
+    RANDBETWEEN(0, 23),  -- Random hour (0-23)
+    RANDBETWEEN(0, 59),  -- Random minutes (0-59)
+    0
+    )
+ Outcome: Enabled analysis of patient admissions by time of day.
+
+ 5. Classified Admission Time into Peak & Non-Peak Hours
+Purpose: To determine when most admissions occur.
+DAX Formula: Admission Peak Hours = 
+IF(
+    HOUR('healthcare_dataset'[Patient Admission Time]) IN {7, 8, 9, 10, 16, 17, 18, 19}, 
+    "Peak Hours", 
+    "Non-Peak Hours"
+)
+Outcome: Identified busiest hospital hours for better resource allocation.
+
+6. Created "Insurance Paid Amount" Column
 Purpose: To calculate the amount covered by insurance.
 DAX Formula:  
  Outcome: Insurance covers 50-90% of the billing amount dynamically.
 
-2. Created "Out-of-Pocket Amount" Column
+7. Created "Out-of-Pocket Amount" Column
 Purpose: To calculate the amount paid by the patient.
 DAX Formula:
 Out of Pocket Amount = 'healthcare_dataset'[Billing Amount] - 'healthcare_dataset'[Insurance Paid Amount]
 
-3. Fixed "Bed Occupancy Rate" Calculation
+8. Fixed "Bed Occupancy Rate" Calculation
 Issue: Initial calculation resulted in extremely high occupancy percentages (5000%+).
 DAX Formula: Bed Occupancy Rate = 
 VAR TotalOccupiedBeds = DISTINCTCOUNT('healthcare_dataset'[Assigned Bed])
@@ -26,12 +72,12 @@ VAR TotalAvailableBeds = DISTINCTCOUNT('healthcare_dataset'[Room Number])
 RETURN DIVIDE(TotalOccupiedBeds, TotalAvailableBeds, 0) * 100
 Outcome: Corrected occupancy rate to reflect real-time bed utilization.
 
-4. Standardized Patient Names (Proper Case)
+9. Standardized Patient Names (Proper Case)
 Issue: Names were in inconsistent casing.
 Power Query Fix: Text.Proper([Name])
 Outcome: Converted "jeFfreY WoOd" → "Jeffrey Wood".
 
-5. Created "Claim Status" Column (Random Assignment)
+10. Created "Claim Status" Column (Random Assignment)
 Purpose: To simulate claim approval vs. rejection.
 DAX Formula:
 Claim Status = 
@@ -42,7 +88,7 @@ IF(
 )
 Outcome: Assigned "Rejected" (20%) or "Approved" (80%) dynamically.
 
-6. Created "Claim Rejection Rate" Measure
+11. Created "Claim Rejection Rate" Measure
    Purpose: To analyze claim rejections per insurance provider.
 DAX Formula:
 Claim Rejection Rate = 
@@ -78,7 +124,7 @@ Outcome: Showed that most admissions occur during non-peak hours.
 5. Bar Chart (Patients by Medical Condition)
 X-Axis: Medical Conditions
 Y-Axis: Number of Patients
-Outcome: Chronic conditions (Diabetes, Hypertension, Arthritis) are leading causes of hospitalization.
+Outcome: Chronic conditions (Diabetes, Hypertension, Arthritis) are the leading causes of hospitalization.
 
 6. Bullet Chart (Billing Analysis)
 Primary Value: Insurance Paid Amount
