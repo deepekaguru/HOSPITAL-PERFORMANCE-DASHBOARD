@@ -1,7 +1,9 @@
 # HOSPITAL-PERFORMANCE-DASHBOARD
  
 🏥 Hospital Performance Dashboard – Project Documentation
-📌 Author: Deepeka Gurunathan
+
+Author: Deepeka Gurunathan
+
 Project Overview: This project focuses on analyzing hospital performance using Power BI, incorporating patient trends, billing insights, bed occupancy rates, and claim rejection analysis.
 ________________________________________
 **Data Transformations & Column Additions**
