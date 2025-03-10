@@ -7,6 +7,7 @@ Author: Deepeka Gurunathan
 Project Overview: This project focuses on analyzing hospital performance using Power BI, incorporating patient trends, billing insights, bed occupancy rates, and claim rejection analysis.
 
 **Data Transformations & Column Additions**
+
 1. Created "Insurance Paid Amount" Column
 Purpose: To calculate the amount covered by insurance.
 DAX Formula:  
@@ -19,9 +20,7 @@ Out of Pocket Amount = 'healthcare_dataset'[Billing Amount] - 'healthcare_datase
 
 3. Fixed "Bed Occupancy Rate" Calculation
 Issue: Initial calculation resulted in extremely high occupancy percentages (5000%+).
-DAX Formula:
-
-Bed Occupancy Rate = 
+DAX Formula: Bed Occupancy Rate = 
 VAR TotalOccupiedBeds = DISTINCTCOUNT('healthcare_dataset'[Assigned Bed])
 VAR TotalAvailableBeds = DISTINCTCOUNT('healthcare_dataset'[Room Number])
 RETURN DIVIDE(TotalOccupiedBeds, TotalAvailableBeds, 0) * 100
@@ -53,7 +52,7 @@ DIVIDE(
 ) * 100
 Outcome: Helped in identifying high-rejection insurers.
 
-Charts & Visualizations Added
+**Charts & Visualizations **
 1. KPI Cards
 •	Total Patients
 •	Average Length of Stay
@@ -87,12 +86,14 @@ Target Value: Billing Amount
 Reference Line: Out-of-Pocket Amount
 Outcome: Compared how much insurance vs. patients are paying.
 
-Enhancements & Future Improvements
+**Enhancements & Future Improvements**
+
 Add Readmission Rate KPI to track how many patients return within 30 days.
 Create a Trend Chart for Claim Rejections Over Time.
 Fix Missing Data in Recent Discharge Trends.
 
 Summary
+
 •	Fixed Bed Occupancy Rate Calculation
 •	Created Claim Status & Rejection Rate Columns
 •	Transformed Patient Names to Proper Case
